@@ -26,17 +26,33 @@ namespace Peregrinus\Cadre;
 
 class Framework {
     
-    static public function setConstants() {
+    static public function setConstants($appName = '', $options) {                
         define('CADRE_version', '0.0.2');
         define('CADRE_software', 'CADRE ' . CADRE_version);
+        
+        define ('CADRE_app', $appName);
+        $appName = strtoupper($appName);
+        define ('CADRE_appKey', $appName.'_');
+        
+        if (isset($options['version']), define(CADRE_appKey.'version', $options['version']));
 
         // CADRE_debug can be set to true before setConstants() is called
         if (!defined('CADRE_debug')) define('CADRE_debug', false);
-        define('CADRE_basePath', __DIR__ . '/');
-        define('CADRE_uploadPath', CADRE_basePath . 'Temp/Uploads/');
+        define (CADRE_appKey.'debug', CADRE_debug);
+        
+        if (isset($options['basePath'])) {
+            define(CADRE_appKey.'basePath', $options['basePath'].'/');
+            define('CADRE_basePath', $options['basePath'].'/');
+        } else {
+            define('CADRE_basePath', __DIR__);
+        }
+        
         define('CADRE_viewPath', CADRE_basePath . 'Resources/Private/Views/');
+        define(CADRE_appKey.'viewPath', CADRE_viewPath);
+
         define('CADRE_baseUrl', (($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] 
         . dirname(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH)) . '/');
+        define (CADRE_appKey.'baseUrl', CADRE_baseUrl);
 
         // error handling stuff:
         if (CADRE_debug) {

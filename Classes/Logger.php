@@ -59,13 +59,13 @@ class Logger
 
     protected function __construct()
     {
-        $this->logger = new \Monolog\Logger('CADRE');
+        $this->logger = new \Monolog\Logger(CADRE_appKey);
         if (CADRE_debug) {
             $this->logger->pushHandler(new \Monolog\Handler\StreamHandler(
-                CADRE_basePath.'Logs/CADRE.debug.log', \Monolog\Logger::DEBUG));
+                CADRE_basePath.'Logs/'.CADRE_appKey.'.debug.log', \Monolog\Logger::DEBUG));
         }
         $this->logger->pushHandler(new \Monolog\Handler\StreamHandler(
-            CADRE_basePath.'Logs/CADRE.notice.log', \Monolog\Logger::NOTICE));
+            CADRE_basePath.'Logs/'.CADRE_appKey.'.notice.log', \Monolog\Logger::NOTICE));
     }
 
     final private function __clone()

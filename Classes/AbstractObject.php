@@ -31,7 +31,7 @@ class AbstractObject {
     
     public function __construct() {
         $configurationManager = \Peregrinus\Cadre\ConfigurationManager::getInstance();
-        $this->config  = $confManager->getConfigurationSet($this->getName(), $this->getObjectTypePlural());        
+        $this->config  = $configurationManager->getConfigurationSet($this->getName(), $this->getObjectTypePlural());        
     }
     
     /**

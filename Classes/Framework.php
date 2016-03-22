@@ -30,7 +30,8 @@ class Framework {
         define('CADRE_version', '0.0.2');
         define('CADRE_software', 'CADRE ' . CADRE_version);
 
-        if (!defined('CADRE_debug')) define('CADRE_debug', true);
+        // CADRE_debug can be set to true before setConstants() is called
+        if (!defined('CADRE_debug')) define('CADRE_debug', false);
         define('CADRE_basePath', __DIR__ . '/');
         define('CADRE_uploadPath', CADRE_basePath . 'Temp/Uploads/');
         define('CADRE_viewPath', CADRE_basePath . 'Resources/Private/Views/');

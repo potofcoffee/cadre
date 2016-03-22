@@ -1,9 +1,17 @@
 {
     "name": "vmfds/cadre",
     "version": "0.2",
-    "description": "Lightweight application framework",
+    "description": "Lightweight PHP application framework",
     "license": "GPL-3.0+",
     "type": "project",
+    "authors": [
+        {
+            "name": "Christoph Fischer",
+            "email": "chris@toph.de",
+            "homepage": "http://christoph-fischer.org",
+            "role": "Developer"
+        }
+    ],
     "repositories": [
         {
             "type": "vcs",

@@ -118,7 +118,7 @@ class Router
                 );
                 throw new \Exception('Default controller class '.$controllerClass.' does not exist!');
             } else {
-                $controllerClass = getControllerClass($this->getDefaultController());
+                $controllerClass = $this->getControllerClass($this->getDefaultController());
             }
         }
         return $controllerClass;

@@ -116,7 +116,7 @@ class Router
                 \Peregrinus\Cadre\Logger::getLogger()->addEmergency(
                     'Default controller class '.$controllerClass.' does not exist!'
                 );
-                throw new Exception('Default controller class '.$controllerClass.' does not exist!');
+                throw new \Exception('Default controller class '.$controllerClass.' does not exist!');
             } else {
                 $controllerClass = getControllerClass($this->getDefaultController());
             }

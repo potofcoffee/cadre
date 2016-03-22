@@ -1,6 +1,6 @@
 <?php
 
-namespace Peregrinus\Cadre\Core;
+namespace Peregrinus\Cadre;
 
 /*
  * CADRE
@@ -45,7 +45,7 @@ class Session
 
     /**
      * Get an instance of the session object
-     * @return \Peregrinus\Cadre\Core\Session Instance of session object
+     * @return \Peregrinus\Cadre\Session Instance of session object
      */
     static public function getInstance()
     {

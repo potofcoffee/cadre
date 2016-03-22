@@ -1,6 +1,6 @@
 <?php
 
-namespace Peregrinus\Cadre\Core;
+namespace Peregrinus\Cadre;
 
 /*
  * CADRE

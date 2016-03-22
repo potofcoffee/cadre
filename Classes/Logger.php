@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Peregrinus\Cadre\Core;
+namespace Peregrinus\Cadre;
 
 /**
  * Description of Logger
@@ -35,7 +35,7 @@ class Logger
 
     /**
      * Get an instance of the request object
-     * @return \Peregrinus\Cadre\Core\Logger Instance of session object
+     * @return \Peregrinus\Cadre\Logger Instance of session object
      */
     static public function getInstance()
     {

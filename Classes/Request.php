@@ -1,6 +1,6 @@
 <?php
 
-namespace Peregrinus\Cadre\Core;
+namespace Peregrinus\Cadre;
 
 /*
  * CADRE
@@ -31,7 +31,7 @@ class Request
 
     /**
      * Get an instance of the request object
-     * @return \Peregrinus\Cadre\Core\Request Instance of session object
+     * @return \Peregrinus\Cadre\Request Instance of session object
      */
     static public function getInstance()
     {
@@ -120,13 +120,13 @@ class Request
         $uri                = str_replace(parse_url(CADRE_baseUrl, PHP_URL_PATH),
             '', $uri);
         $uri                = parse_url($uri, PHP_URL_PATH);
-        \Peregrinus\Cadre\Core\Logger::getLogger()->addDebug('Parsing URI '.$uri);
+        \Peregrinus\Cadre\Logger::getLogger()->addDebug('Parsing URI '.$uri);
         if ($uri != '') {
             $this->data['_raw'] = explode('/', $uri);
         } else {
             $this->data['_raw'] = array();
         }
-        \Peregrinus\Cadre\Core\Logger::getLogger()->addDebug('URI parsed',
+        \Peregrinus\Cadre\Logger::getLogger()->addDebug('URI parsed',
             $this->data);
     }
 
@@ -169,7 +169,7 @@ class Request
     {
         foreach ($args as $arg) {
             if (!$this->hasArgument($arg)) {
-                \Peregrinus\Cadre\Core\Logger::getLogger()->addDebug('FATAL: Missing argument \''.$arg.'\'');
+                \Peregrinus\Cadre\Logger::getLogger()->addDebug('FATAL: Missing argument \''.$arg.'\'');
                 die('FATAL: Missing argument \''.$arg.'\'');
             }
         }

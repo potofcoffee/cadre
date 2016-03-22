@@ -56,7 +56,7 @@ class AbstractController
      */
     public function dispatch()
     {
-        $request = \Peregrinus\Cadre\Core\Request::getInstance();
+        $request = \Peregrinus\Cadre\Request::getInstance();
 
         if (!$request->hasArgument('action')) {
             // redirect to default action
@@ -66,13 +66,13 @@ class AbstractController
         $requestedAction = $request->getArgument('action');
         $actionMethod    = $requestedAction.'Action';
         if (!method_exists($this, $actionMethod)) {
-            \Peregrinus\Cadre\Core\Logger::getLogger()->addEmergency(
+            \Peregrinus\Cadre\Logger::getLogger()->addEmergency(
                 'Method "'.$actionMethod.'" not implemented in controller'.get_class($this).' .');
             throw new \Exception('Method "'.$requestedAction.'" not implemented in this controller.',
             0x01);
         } else {
             // get the view
-            $this->view = new \Peregrinus\Cadre\Core\View($requestedAction);
+            $this->view = new \Peregrinus\Cadre\View($requestedAction);
             $this->view->setViewPath(CADRE_viewPath.$this->getName().'/');
             // run the initialize and action methods
             $this->initializeController();
@@ -87,12 +87,12 @@ class AbstractController
 
     /**
      * Get an instance of the configuration manager
-     * @return \Peregrinus\Cadre\Core\ConfigurationManager Configuration manager object
+     * @return \Peregrinus\Cadre\ConfigurationManager Configuration manager object
      */
     protected function getConfigurationManager()
     {
         if (is_null($this->configurationManager)) {
-            $this->configurationManager = \Peregrinus\Cadre\Core\ConfigurationManager::getInstance();
+            $this->configurationManager = \Peregrinus\Cadre\ConfigurationManager::getInstance();
         }
         return $this->configurationManager;
     }
@@ -118,7 +118,7 @@ class AbstractController
                                         $redirectMethod = self::REDIRECT_HEADER,
                                         $delay = 0)
     {
-        \Peregrinus\Cadre\Core\Router::getInstance()->redirect(
+        \Peregrinus\Cadre\Router::getInstance()->redirect(
             strtolower($this->getName()), $action, null, null, $redirectMethod,
             $delay);
     }

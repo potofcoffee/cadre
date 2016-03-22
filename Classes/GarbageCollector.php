@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Peregrinus\Cadre\Core;
+namespace Peregrinus\Cadre;
 
 /**
  * Description of GarbageCollector
@@ -44,7 +44,7 @@ class GarbageCollector
             if (($entry !== '.') && ($entry !== '..')) {
                 $fileAge = filemtime($folder.$entry);
                 if ($fileAge < $oldestPermitted) {
-                    \Peregrinus\Cadre\Core\Logger::getLogger()->addDebug('Garbage collector cleaning '.$folder.$entry);
+                    \Peregrinus\Cadre\Logger::getLogger()->addDebug('Garbage collector cleaning '.$folder.$entry);
                     unlink($folder.$entry);
                 }
             }

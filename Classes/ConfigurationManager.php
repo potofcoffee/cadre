@@ -1,5 +1,5 @@
 <?php
-namespace Peregrinus\Cadre\Core;
+namespace Peregrinus\Cadre;
 
 /*
  * CADRE
@@ -38,7 +38,7 @@ class ConfigurationManager
     /**
      * Get an instance of the configuration manager
      *
-     * @return \Peregrinus\Cadre\Core\ConfigurationManager Instance of configuration manager
+     * @return \Peregrinus\Cadre\ConfigurationManager Instance of configuration manager
      */
     static public function getInstance()
     {
@@ -64,9 +64,9 @@ class ConfigurationManager
             $yamlFile = CADRE_basePath . '/Configuration/' . $folderTitle . ucfirst($setTitle) . '.yaml';
             if (file_exists($yamlFile)) {
                 $this->conf['_' . $folderTitle][$setTitle] = yaml_parse_file($yamlFile);
-                \Peregrinus\Cadre\Core\Logger::getLogger()->addDebug('Requesting configuration file ' . $yamlFile . ': Found. ' . print_r($this->conf['_' . $folderTitle][$setTitle], 1));
+                \Peregrinus\Cadre\Logger::getLogger()->addDebug('Requesting configuration file ' . $yamlFile . ': Found. ' . print_r($this->conf['_' . $folderTitle][$setTitle], 1));
             } else {
-                \Peregrinus\Cadre\Core\Logger::getLogger()->addDebug('Requesting configuration file ' . $yamlFile . ': Not found.');
+                \Peregrinus\Cadre\Logger::getLogger()->addDebug('Requesting configuration file ' . $yamlFile . ': Not found.');
                 $this->conf['_' . $folderTitle][$setTitle] = array();
             }
         }

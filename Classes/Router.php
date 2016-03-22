@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Peregrinus\Cadre\Core;
+namespace Peregrinus\Cadre;
 
 /**
  * Description of Router
@@ -67,7 +67,7 @@ class Router
         if ($this->defaultController != '') {
             return $this->defaultController;
         } else {
-            \Peregrinus\Cadre\Core\Logger::getLogger()->addEmergency(
+            \Peregrinus\Cadre\Logger::getLogger()->addEmergency(
                 'No default controller specified. Use Router->setDefaultController();');
             throw new Exception('No default controller specified.');
         }
@@ -88,7 +88,7 @@ class Router
      */
     public function dispatch()
     {
-        $request = \Peregrinus\Cadre\Core\Request::getInstance();
+        $request = \Peregrinus\Cadre\Request::getInstance();
         $request->parseUri();
         $request->applyUriPattern(array('controller', 'action'));
 
@@ -113,7 +113,7 @@ class Router
         return '\\VMFDS\\CADRE\\Controllers\\'.ucfirst($controllerName).'Controller';
         if (!class_exists($controllerClass)) {
             if ($controllerName == $this->getDefaultController()) {
-                \Peregrinus\Cadre\Core\Logger::getLogger()->addEmergency(
+                \Peregrinus\Cadre\Logger::getLogger()->addEmergency(
                     'Default controller class '.$controllerClass.' does not exist!'
                 );
                 throw new Exception('Default controller class '.$controllerClass.' does not exist!');
@@ -162,7 +162,7 @@ class Router
         }
         $arguments['controller'] = $controller;
         $arguments['action']     = $action;
-        $uri                     = \Peregrinus\Cadre\Core\Router::getInstance()->getUri($arguments,
+        $uri                     = \Peregrinus\Cadre\Router::getInstance()->getUri($arguments,
             $pattern);
 
 

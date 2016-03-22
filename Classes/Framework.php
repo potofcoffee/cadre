@@ -34,7 +34,7 @@ class Framework {
         $appName = strtoupper($appName);
         define ('CADRE_appKey', $appName.'_');
         
-        if (isset($options['version']), define(CADRE_appKey.'version', $options['version']));
+        if (isset($options['version'])) define(CADRE_appKey.'version', $options['version']);
 
         // CADRE_debug can be set to true before setConstants() is called
         if (!defined('CADRE_debug')) define('CADRE_debug', false);

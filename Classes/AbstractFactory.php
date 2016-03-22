@@ -31,13 +31,23 @@ namespace Peregrinus\Cadre;
 class AbstractFactory
 {
     static protected $ns = '';
+    static protected $pluralName = '';
+    
+    static public function getPluralName() {
+        if (self::$pluralName) return self::$pluralName;
+        $key = self::getKey();
+        if (substr($key, -1) == 'y') return substr($key, 0, -1).'ies';
+        return $key.'s';
+    }
 
-    static public function getAllClasses($type)
+    static public function getAllClasses($type = NULL)
     {
+        // infer type from own class name
+        if (!$type) $type = self::getKey();
         $type          = ucfirst($type);
         $typeAbstract  = 'Abstract'.$type;
-        $typeMulti     = $type.'s';
-        $typeNamespace = '\\VMFDS\\CADRE\\'.$typeMulti;
+        $typeMulti     = self::getPluralName();
+        $typeNamespace = CADRE_appNameSpace.$typeMulti;
         $typePath      = CADRE_basePath.'Classes/'.$typeMulti.'/';
 
         $classes = array();
@@ -64,7 +74,7 @@ class AbstractFactory
     {
         $class = get_called_class();
         return str_replace('Factory', '',
-            str_replace('VMFDS\\CADRE\\Factories\\', '', $class));
+            str_replace(CADRE_appNameSpace.'Factories\\', '', $class));
     }
 
     /**

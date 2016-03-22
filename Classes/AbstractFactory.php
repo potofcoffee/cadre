@@ -45,7 +45,6 @@ class AbstractFactory
         // infer type from own class name
         if (!$type) $type = self::getKey();
         $type          = ucfirst($type);
-        $typeAbstract  = 'Abstract'.$type;
         $typeMulti     = self::getPluralName();
         $typeNamespace = CADRE_appNameSpace.$typeMulti;
         $typePath      = CADRE_basePath.'Classes/'.$typeMulti.'/';
@@ -55,7 +54,7 @@ class AbstractFactory
         $handle  = opendir($typePath);
         while ($file    = readdir($handle)) {
             if (substr($file, -(strlen($type) + 4)) == $type.'.php') {
-                if ($file != $typeAbstract.'.php') {
+                if (substr($file, 0, 8) !== 'Abstract') {
                     $thisType           = substr($file, 0, -(strlen($type) + 4));
                     $thisClass          = $typeNamespace.'\\'.$thisType.$type;
                     $classes[$thisType] = $thisClass;

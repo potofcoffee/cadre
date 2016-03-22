@@ -1,0 +1,23 @@
+{
+    "name": "vmfds/cadre",
+    "version": "0.2",
+    "description": "Lightweight application framework",
+    "license": "GPL-3.0+",
+    "type": "project",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/potofcoffee/cadre"
+        }
+    ],
+    "require": {
+        "twig/twig": "~1.0",
+        "monolog/monolog": "~1.13.1",
+        "electrolinux/phpquery": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Peregrinus\\Cadre\\": "Classes/"
+        }
+    }
+}

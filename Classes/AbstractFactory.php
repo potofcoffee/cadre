@@ -21,7 +21,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Peregrinus\Cadre\Factories;
+namespace Peregrinus\Cadre;
 
 /**
  * Abstract factory class

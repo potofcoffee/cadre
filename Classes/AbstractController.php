@@ -1,6 +1,6 @@
 <?php
 
-namespace Peregrinus\Cadre\Controllers;
+namespace Peregrinus\Cadre;
 
 /*
  * CADRE

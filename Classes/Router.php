@@ -110,7 +110,7 @@ class Router
      */
     protected function getControllerClass($controllerName)
     {
-        return CADRE_appNameSpace.'Controllers\\'.ucfirst($controllerName).'Controller';
+        $controllerClass = CADRE_appNameSpace.'Controllers\\'.ucfirst($controllerName).'Controller';
         if (!class_exists($controllerClass)) {
             if ($controllerName == $this->getDefaultController()) {
                 \Peregrinus\Cadre\Logger::getLogger()->addEmergency(
@@ -121,6 +121,7 @@ class Router
                 $controllerClass = getControllerClass($this->getDefaultController());
             }
         }
+        return $controllerClass;
     }
 
     /**

@@ -105,7 +105,7 @@ class AbstractController
     {
         $class = get_class($this);
         return str_replace('Controller', '',
-            str_replace('VMFDS\\CADRE\\Controllers\\', '', $class));
+            str_replace(CADRE_appNameSpace.'Controllers\\', '', $class));
     }
 
     /**

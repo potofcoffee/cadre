@@ -46,6 +46,11 @@ class Framework {
         } else {
             define('CADRE_basePath', __DIR__);
         }
+        if (isset($options['namespace'])) {
+            define('CADRE_appNameSpace', $options['namespace']);
+        } else {
+            define('CADRE_appNameSpace', 'Peregrinus\\Cadre\\');
+        }
         
         define('CADRE_viewPath', CADRE_basePath . 'Resources/Private/Views/');
         define(CADRE_appKey.'viewPath', CADRE_viewPath);

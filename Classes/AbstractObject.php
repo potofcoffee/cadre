@@ -58,7 +58,7 @@ class AbstractObject {
      * Get this object's name
      * @return \string
      */
-    protected function getName()
+    public function getName()
     {
         $class = get_class($this);
 

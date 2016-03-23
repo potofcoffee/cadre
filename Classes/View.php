@@ -35,6 +35,7 @@ class View
     private $renderMultiple = false;
     private $rendered       = false;
     private $contentType    = 'text/html';
+    private $charSet       = 'utf-8';
 
     public function __construct($actionName)
     {
@@ -114,6 +115,26 @@ class View
      */
     public function sendContentTypeHeader()
     {
-        Header('Content-Type: '.$this->contentType);
+        $charset = $this->getCharSet();
+        Header('Content-Type: '.$this->contentType.($charset ? '; charset='.$charset : ''));
     }
+    
+    
+    /**
+     * Get this view's encoding
+     * @return string charset
+     */
+    function getCharSet() {
+        return $this->charSet;
+    }
+
+    /**
+     * Sets this view's encoding
+     * @param string $charSet charset (set to empty to suppress)
+     */
+    function setCharSet($charSet) {
+        $this->charSet = $charSet;
+    }
+
+
 }

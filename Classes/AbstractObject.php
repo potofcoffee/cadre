@@ -25,13 +25,15 @@ class AbstractObject {
     // if it can't be automatically inferred from the plural
     protected $objectType = '';
     
+    protected $configurationManager = NULL;
+    
     // configuration array
     protected $config = array();
-    
+
     
     public function __construct() {
-        $configurationManager = \Peregrinus\Cadre\ConfigurationManager::getInstance();
-        $this->config  = $configurationManager->getConfigurationSet($this->getName(), $this->getObjectTypePlural());        
+        $this->configurationManager = \Peregrinus\Cadre\ConfigurationManager::getInstance();
+        $this->config  = $this->configurationManager->getConfigurationSet($this->getName(), $this->getObjectTypePlural());        
     }
     
     /**

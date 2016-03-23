@@ -74,11 +74,12 @@ class AbstractController {
             $this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');
             // run the initialize and action methods
             $this->initializeController();
-            $this->$actionMethod();
-            // render the view
-            if ($this->showView) {
-                $this->view->sendContentTypeHeader();
-                $this->renderView();
+            if ($this->$actionMethod() !== FALSE) {
+                // render the view
+                if ($this->showView) {
+                    $this->view->sendContentTypeHeader();
+                    $this->renderView();
+                }
             }
         }
     }

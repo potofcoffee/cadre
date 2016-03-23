@@ -24,28 +24,28 @@ namespace Peregrinus\Cadre;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class AbstractController
-{
-    const REDIRECT_HEADER     = 0x01;
+class AbstractController {
+
+    const REDIRECT_HEADER = 0x01;
     const REDIRECT_JAVASCRIPT = 0x02;
 
-    private $conf                 = array();
+    private $conf = array();
     private $configurationManager = NULL;
-    protected $defaultAction      = '';
-    protected $viewPath           = 'Views/';
-    protected $viewLoader         = NULL;
-    protected $view               = NULL;
-    protected $showView           = TRUE;
+    protected $defaultAction = '';
+    protected $viewPath = 'Views/';
+    protected $viewLoader = NULL;
+    protected $view = NULL;
+    protected $showView = TRUE;
+    protected $request = NULL;
 
-    public function __construct()
-    {
+    public function __construct() {
         $confManager = $this->getConfigurationManager();
-        $this->conf  = $confManager->getConfigurationSet('CADRE');
+        $this->conf = $confManager->getConfigurationSet('CADRE');
+        $this->request = \Peregrinus\Cadre\Request::getInstance();
     }
 
-    protected function initializeController()
-    {
-
+    protected function initializeController() {
+        
     }
 
     /**
@@ -54,8 +54,7 @@ class AbstractController
      * @return void
      * @throws \Exception
      */
-    public function dispatch()
-    {
+    public function dispatch() {
         $request = \Peregrinus\Cadre\Request::getInstance();
 
         if (!$request->hasArgument('action')) {
@@ -64,16 +63,15 @@ class AbstractController
             $this->redirectToAction($defaultAction);
         }
         $requestedAction = $request->getArgument('action');
-        $actionMethod    = $requestedAction.'Action';
+        $actionMethod = $requestedAction . 'Action';
         if (!method_exists($this, $actionMethod)) {
             \Peregrinus\Cadre\Logger::getLogger()->addEmergency(
-                'Method "'.$actionMethod.'" not implemented in controller'.get_class($this).' .');
-            throw new \Exception('Method "'.$requestedAction.'" not implemented in this controller.',
-            0x01);
+                    'Method "' . $actionMethod . '" not implemented in controller' . get_class($this) . ' .');
+            throw new \Exception('Method "' . $requestedAction . '" not implemented in this controller.', 0x01);
         } else {
             // get the view
             $this->view = new \Peregrinus\Cadre\View($requestedAction);
-            $this->view->setViewPath(CADRE_viewPath.$this->getName().'/');
+            $this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');
             // run the initialize and action methods
             $this->initializeController();
             $this->$actionMethod();
@@ -89,8 +87,7 @@ class AbstractController
      * Get an instance of the configuration manager
      * @return \Peregrinus\Cadre\ConfigurationManager Configuration manager object
      */
-    protected function getConfigurationManager()
-    {
+    protected function getConfigurationManager() {
         if (is_null($this->configurationManager)) {
             $this->configurationManager = \Peregrinus\Cadre\ConfigurationManager::getInstance();
         }
@@ -101,11 +98,9 @@ class AbstractController
      * Get this controllers's name (class without namespace and 'Provider')
      * @return \string
      */
-    public function getName()
-    {
+    public function getName() {
         $class = get_class($this);
-        return str_replace('Controller', '',
-            str_replace(CADRE_appNameSpace.'Controllers\\', '', $class));
+        return str_replace('Controller', '', str_replace(CADRE_appNameSpace . 'Controllers\\', '', $class));
     }
 
     /**
@@ -114,21 +109,16 @@ class AbstractController
      * @param \int $redirectMethod Method of redirecting
      * @param \int $delay Delay in ms (only with javascript redirect)
      */
-    protected function redirectToAction($action,
-                                        $redirectMethod = self::REDIRECT_HEADER,
-                                        $delay = 0)
-    {
+    protected function redirectToAction($action, $redirectMethod = self::REDIRECT_HEADER, $delay = 0) {
         \Peregrinus\Cadre\Router::getInstance()->redirect(
-            strtolower($this->getName()), $action, null, null, $redirectMethod,
-            $delay);
+                strtolower($this->getName()), $action, null, null, $redirectMethod, $delay);
     }
 
     /**
      * Get default action name for this controller
      * @return \string Default action name
      */
-    function getDefaultAction()
-    {
+    function getDefaultAction() {
         return $this->defaultAction;
     }
 
@@ -137,8 +127,7 @@ class AbstractController
      * @param \string $defaultAction Default action name
      * @return void
      */
-    function setDefaultAction($defaultAction)
-    {
+    function setDefaultAction($defaultAction) {
         $this->defaultAction = $defaultAction;
     }
 
@@ -146,8 +135,7 @@ class AbstractController
      * Switch off view handling
      * @return void
      */
-    public function dontShowView()
-    {
+    public function dontShowView() {
         $this->showView = false;
     }
 
@@ -155,8 +143,7 @@ class AbstractController
      * Render the view now
      * @param bool $show Output the view right away
      */
-    public function renderView($show = true)
-    {
+    public function renderView($show = true) {
         $rendered = $this->view->render();
         if ($show) {
             echo $rendered;
@@ -165,4 +152,5 @@ class AbstractController
         $this->dontShowView();
         return $rendered;
     }
+
 }

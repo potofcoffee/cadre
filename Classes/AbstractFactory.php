@@ -91,7 +91,7 @@ class AbstractFactory
                 unset ($nsParts[$key]);
             }
         }
-        return join ('\\', $nsParts).'\\';
+        return '\\'.join ('\\', $nsParts).'\\';
     }
 
     /**

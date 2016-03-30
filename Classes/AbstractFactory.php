@@ -83,7 +83,7 @@ class AbstractFactory
         $found = false;
         foreach ($nsParts as $key => $nsPart) {
             if (!$found) {
-                if ($nsParts == 'Factories') {
+                if ($nsPart == 'Factories') {
                     $found = true;
                 }
             }

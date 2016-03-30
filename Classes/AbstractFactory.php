@@ -61,7 +61,7 @@ class AbstractFactory
                 }
             }
         }
-        closedir($handle);
+        closedir($handle);                
         return $classes;
     }
 
@@ -75,6 +75,24 @@ class AbstractFactory
         return str_replace('Factory', '',
             str_replace(CADRE_appNameSpace.'Factories\\', '', $class));
     }
+    
+    
+    static public function getRootNamespace() {
+        $class = get_called_class();
+        $nsParts = explode('\\', $class);
+        $found = false;
+        foreach ($nsParts as $key => $nsPart) {
+            if (!$found) {
+                if ($nsParts == 'Factories') {
+                    $found = true;
+                }
+            }
+            if ($found) {
+                unset ($nsParts[$key]);
+            }
+        }
+        return join ('\\', $nsParts).'\\';
+    }
 
     /**
      * Get a single object
@@ -85,7 +103,7 @@ class AbstractFactory
     {
         $factoryType = self::getKey();
         $ns          = (self::$ns ? self::$ns : $factoryType.'s');
-        $className   = '\\VMFDS\\CADRE\\'.$ns.'\\'.ucFirst($key).$factoryType;
+        $className   = self::getRootNamespace().$ns.'\\'.ucFirst($key).$factoryType;
         if (class_exists($className)) {
             return new $className();
         } else {

@@ -37,6 +37,14 @@ class AbstractObject {
     }
     
     /**
+     * Override values from object configuration
+     * @param array $config New configuration values
+     */
+    public function overrideConfiguration($config) {
+        $this->config = array_replace_recursive($this->config, $config);
+    }
+    
+    /**
      * Get this object's type in the plural (e.g. "Providers")
      * @return string
      */

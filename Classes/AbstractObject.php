@@ -41,7 +41,8 @@ class AbstractObject {
      * @param array $config New configuration values
      */
     public function overrideConfiguration($config) {
-        $this->config = array_replace_recursive($this->config, $config);
+        if (is_array($config)) 
+            $this->config = array_replace_recursive($this->config, $config);
     }
     
     /**

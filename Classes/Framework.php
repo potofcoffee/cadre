@@ -55,7 +55,7 @@ class Framework {
         define('CADRE_viewPath', CADRE_basePath . 'Resources/Private/Views/');
         define(CADRE_appKey.'viewPath', CADRE_viewPath);
 
-        define('CADRE_baseUrl', (($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] 
+        define('CADRE_baseUrl', ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] 
         . dirname(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH)) . '/');
         define (CADRE_appKey.'baseUrl', CADRE_baseUrl);
 

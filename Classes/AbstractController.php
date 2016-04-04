@@ -81,7 +81,7 @@ class AbstractController {
             throw new \Exception('Method "' . $requestedAction . '" not implemented in this controller.', 0x01);
         } else {
             // run the initialize and action methods
-            $this->initializeView();
+            $this->initializeView($requestedAction);
             $this->initializeController();
             $result = $this->$actionMethod();
             if ($result !== FALSE) {

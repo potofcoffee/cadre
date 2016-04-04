@@ -32,16 +32,16 @@ class Framework {
         
         define ('CADRE_app', $appName);
         $appName = strtoupper($appName);
-        define ('CADRE_appKey', $appName.'_');
+        define ('CADRE_appKey', $appName);
         
-        if (isset($options['version'])) define(CADRE_appKey.'version', $options['version']);
+        if (isset($options['version'])) define(CADRE_appKey.'_version', $options['version']);
 
         // CADRE_debug can be set to true before setConstants() is called
         if (!defined('CADRE_debug')) define('CADRE_debug', false);
-        define (CADRE_appKey.'debug', CADRE_debug);
+        define (CADRE_appKey.'_debug', CADRE_debug);
         
         if (isset($options['basePath'])) {
-            define(CADRE_appKey.'basePath', $options['basePath'].'/');
+            define(CADRE_appKey.'_basePath', $options['basePath'].'/');
             define('CADRE_basePath', $options['basePath'].'/');
         } else {
             define('CADRE_basePath', __DIR__);

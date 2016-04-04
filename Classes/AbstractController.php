@@ -37,6 +37,7 @@ class AbstractController {
     protected $view = NULL;
     protected $showView = TRUE;
     protected $request = NULL;
+    protected $encodingFunction = NULL;
 
     public function __construct() {
         $confManager = $this->getConfigurationManager();
@@ -141,11 +142,27 @@ class AbstractController {
     }
 
     /**
+     * Set the encoding function
+     * @param string $encodingFunction Method or function name
+     */
+    function setEncodingFunction($encodingFunction) {
+        $this->encodingFunction = $encodingFunction;
+    }
+    
+    /**
      * Render the view now
      * @param bool $show Output the view right away
      */
     public function renderView($show = true) {
         $rendered = $this->view->render();
+        // final encoding function?
+        if ($func = $this->encodingFunction) {
+            if (method_exists($this, $func)) {
+                $rendered = $this->$func($rendered);
+            } elseif (function_exists($func)) {
+                $rendered = $func($rendered);
+            }
+        }
         if ($show) {
             echo $rendered;
         }

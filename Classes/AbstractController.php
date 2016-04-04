@@ -145,7 +145,7 @@ class AbstractController {
      * Set the encoding function
      * @param string $encodingFunction Method or function name
      */
-    function setEncodingFunction($encodingFunction) {
+    public function setEncodingFunction($encodingFunction) {
         $this->encodingFunction = $encodingFunction;
     }
     

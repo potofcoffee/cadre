@@ -45,6 +45,12 @@ class AbstractController {
         $this->request = \Peregrinus\Cadre\Request::getInstance();
     }
 
+    protected function initializeView() {
+        // get the view
+        $this->view = new \Peregrinus\Cadre\View($requestedAction);
+        $this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');
+    }
+
     protected function initializeController() {
         
     }
@@ -70,16 +76,15 @@ class AbstractController {
                     'Method "' . $actionMethod . '" not implemented in controller' . get_class($this) . ' .');
             throw new \Exception('Method "' . $requestedAction . '" not implemented in this controller.', 0x01);
         } else {
-            // get the view
-            $this->view = new \Peregrinus\Cadre\View($requestedAction);
-            $this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');
             // run the initialize and action methods
+            $this->initializeView();
             $this->initializeController();
-            if ($result = $this->$actionMethod() !== FALSE) {
+            $result = $this->$actionMethod();
+            if ($result !== FALSE) {
                 // render the view
                 if ($this->showView) {
                     $this->view->sendContentTypeHeader();
-                    $this->renderView(NULL, $result);
+                    $this->renderView($this->showView, $result);
                 }
             }
         }
@@ -148,7 +153,7 @@ class AbstractController {
     public function setEncodingFunction($encodingFunction) {
         $this->encodingFunction = $encodingFunction;
     }
-    
+
     /**
      * Render the view now
      * @param bool $show Output the view right away

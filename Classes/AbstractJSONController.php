@@ -54,7 +54,7 @@ class AbstractJSONController extends \Peregrinus\Cadre\AbstractController {
      */
     protected function returnResult($result, $errorMessage) {
         if ($result === FALSE) {
-            return $this->returnError($errorMessage)
+            return $this->returnError($errorMessage);
         } else {
             return $result;
         }

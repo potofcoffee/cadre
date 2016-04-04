@@ -35,5 +35,29 @@ class AbstractJSONController extends \Peregrinus\Cadre\AbstractController {
         $this->setEncodingFunction('json_encode');
     }
     
+    /**
+     * Return AJAX error
+     * @param string $e Error message
+     */
+    protected function returnError($e) {
+        \Peregrinus\Cadre\Logger::getLogger()->addDebug('Returning error 500: ' . $e);
+        Header('HTTP/1.1 500 Internal Server Error');
+        return ['error' => $e];
+    }
+    
+    /**
+     * Return result
+     * FALSE results will be encapsulated in an error message
+     * @param array $result Result
+     * @param string $errorMessage Error message
+     * @return array Result
+     */
+    protected function returnResult($result, $errorMessage) {
+        if ($result === FALSE) {
+            return $this->returnError($errorMessage)
+        } else {
+            return $result;
+        }
+    }
     
 }

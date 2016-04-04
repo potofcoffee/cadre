@@ -75,11 +75,11 @@ class AbstractController {
             $this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');
             // run the initialize and action methods
             $this->initializeController();
-            if ($this->$actionMethod() !== FALSE) {
+            if ($result = $this->$actionMethod() !== FALSE) {
                 // render the view
                 if ($this->showView) {
                     $this->view->sendContentTypeHeader();
-                    $this->renderView();
+                    $this->renderView(NULL, $result);
                 }
             }
         }
@@ -152,9 +152,10 @@ class AbstractController {
     /**
      * Render the view now
      * @param bool $show Output the view right away
+     * @param string $overrideContents Override contents
      */
-    public function renderView($show = true) {
-        $rendered = $this->view->render();
+    public function renderView($show = true, $overrideContents) {
+        $rendered = $overrideContents ? $overrideContents : $this->view->render();
         // final encoding function?
         if ($func = $this->encodingFunction) {
             if (method_exists($this, $func)) {

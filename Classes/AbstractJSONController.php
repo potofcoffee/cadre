@@ -21,7 +21,11 @@ namespace Peregrinus\Cadre;
 
 class AbstractJSONController extends \Peregrinus\Cadre\AbstractController {
     
-    protected function initializeView() {
+    /**
+     * Initialize the view object
+     * @param string $requestedAction Requested action
+     */
+    protected function initializeView($requestedAction) {
         // No view will be available! Be sure not to use $this->view->...!
     }
 

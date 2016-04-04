@@ -45,7 +45,11 @@ class AbstractController {
         $this->request = \Peregrinus\Cadre\Request::getInstance();
     }
 
-    protected function initializeView() {
+    /**
+     * Initialize the view object
+     * @param string $requestedAction Requested action
+     */
+    protected function initializeView($requestedAction) {
         // get the view
         $this->view = new \Peregrinus\Cadre\View($requestedAction);
         $this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');

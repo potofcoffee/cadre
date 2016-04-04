@@ -19,8 +19,8 @@
         }
     ],
     "require": {
-        "twig/twig": "~1.0",
-        "monolog/monolog": "~1.13.1",
+        "twig/twig": "*",
+        "monolog/monolog": "*",
         "electrolinux/phpquery": "*"
     },
     "autoload": {

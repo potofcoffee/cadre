@@ -22,7 +22,7 @@
         "twig/twig": "*",
         "monolog/monolog": "*",
         "electrolinux/phpquery": "*",
-        "typo3fluid/fluid": "*",
+        "typo3fluid/fluid": "*"
     },
     "autoload": {
         "psr-4": {

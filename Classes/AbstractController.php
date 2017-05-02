@@ -24,6 +24,8 @@ namespace Peregrinus\Cadre;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Peregrinus\Cadre\Exception\ForwardToActionException;
+
 class AbstractController {
 
     const REDIRECT_HEADER = 0x01;
@@ -87,25 +89,37 @@ class AbstractController {
             $this->redirectToAction($defaultAction);
         }
         $requestedAction = $request->getArgument('action');
+        $this->initializeView($requestedAction);
+        $this->initializeController();
+        $result = $this->dispatchAction($requestedAction);
+
+        if ($result !== FALSE) {
+            // render the view
+            if ($this->showView) {
+                //$this->view->sendContentTypeHeader();
+                $this->renderView($this->showView, $result);
+            }
+        }
+
+    }
+
+    protected function dispatchAction($requestedAction) {
         $actionMethod = $requestedAction . 'Action';
         if (!method_exists($this, $actionMethod)) {
             \Peregrinus\Cadre\Logger::getLogger()->addEmergency(
-                    'Method "' . $actionMethod . '" not implemented in controller' . get_class($this) . ' .');
+                'Method "' . $actionMethod . '" not implemented in controller' . get_class($this) . ' .');
             throw new \Exception('Method "' . $requestedAction . '" not implemented in this controller.', 0x01);
         } else {
             // run the initialize and action methods
             $this->action = $requestedAction;
-            $this->initializeView($requestedAction);
-            $this->initializeController();
-            $result = $this->$actionMethod();
-            if ($result !== FALSE) {
-                // render the view
-                if ($this->showView) {
-                    //$this->view->sendContentTypeHeader();
-                    $this->renderView($this->showView, $result);
-                }
+            try {
+                $result = $this->$actionMethod();
+            } catch (ForwardToActionException $forwardToActionException) {
+                return $this->dispatchAction($forwardToActionException->getAction());
             }
         }
+        return $result;
+
     }
 
     /**
@@ -193,6 +207,10 @@ class AbstractController {
         // prevent showing twice:
         $this->dontShowView();
         return $rendered;
+    }
+
+    public function forward($action) {
+        throw new ForwardToActionException($action);
     }
 
 }

@@ -82,6 +82,15 @@ class Request
     }
 
     /**
+     * Manually set argument
+     * @param string $argument Argument key
+     * @param mixed $data Data
+     */
+    public function setArgument($argument, $data) {
+        $this->data[$argument] = $data;
+    }
+
+    /**
      * Get all request arguments
      * @return array Arguments
      */

@@ -38,6 +38,8 @@ class AbstractController {
     protected $showView = TRUE;
     protected $request = NULL;
     protected $encodingFunction = NULL;
+    protected $action = '';
+    protected $controllerName = '';
 
     public function __construct() {
         $confManager = $this->getConfigurationManager();
@@ -58,6 +60,7 @@ class AbstractController {
         $paths->setTemplateRootPaths([CADRE_basePath.'Resources/Private/Templates/']);
         $paths->setPartialRootPaths([CADRE_basePath.'Resources/Private/Partials/']);
         $paths->setLayoutRootPaths([CADRE_basePath.'Resources/Private/Layouts/']);
+        $this->view->getRenderingContext()->setControllerName($this->controllerName);
     }
 
     protected function initializeController() {
@@ -73,6 +76,10 @@ class AbstractController {
     public function dispatch() {
         $request = \Peregrinus\Cadre\Request::getInstance();
 
+        // get the controller name:
+        $tmp = explode('\\', get_class($this));
+        $this->controllerName = str_replace('Controller', '', $tmp[count($tmp)-1]);
+
         if (!$request->hasArgument('action')) {
             // redirect to default action
             $defaultAction = $this->defaultAction ? $this->defaultAction : 'default';
@@ -86,6 +93,7 @@ class AbstractController {
             throw new \Exception('Method "' . $requestedAction . '" not implemented in this controller.', 0x01);
         } else {
             // run the initialize and action methods
+            $this->action = $requestedAction;
             $this->initializeView($requestedAction);
             $this->initializeController();
             $result = $this->$actionMethod();
@@ -169,7 +177,7 @@ class AbstractController {
      * @param string $overrideContents Override contents
      */
     public function renderView($show = true, $overrideContents) {
-        $rendered = $overrideContents ? $overrideContents : $this->view->render();
+        $rendered = $overrideContents ? $overrideContents : $this->view->render($this->action);
         // final encoding function?
         if ($func = $this->encodingFunction) {
             if (method_exists($this, $func)) {

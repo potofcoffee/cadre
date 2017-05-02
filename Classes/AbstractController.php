@@ -61,6 +61,7 @@ class AbstractController {
         $paths->setPartialRootPaths([CADRE_basePath.'Resources/Private/Partials/']);
         $paths->setLayoutRootPaths([CADRE_basePath.'Resources/Private/Layouts/']);
         $this->view->getRenderingContext()->setControllerName($this->controllerName);
+        $this->view->assign('baseUrl', CADRE_baseUrl);
     }
 
     protected function initializeController() {

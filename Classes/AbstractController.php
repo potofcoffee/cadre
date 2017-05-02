@@ -92,7 +92,7 @@ class AbstractController {
             if ($result !== FALSE) {
                 // render the view
                 if ($this->showView) {
-                    $this->view->sendContentTypeHeader();
+                    //$this->view->sendContentTypeHeader();
                     $this->renderView($this->showView, $result);
                 }
             }

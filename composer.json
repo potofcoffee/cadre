@@ -21,7 +21,8 @@
     "require": {
         "twig/twig": "*",
         "monolog/monolog": "*",
-        "electrolinux/phpquery": "*"
+        "electrolinux/phpquery": "*",
+        "typo3fluid/fluid": "*",
     },
     "autoload": {
         "psr-4": {

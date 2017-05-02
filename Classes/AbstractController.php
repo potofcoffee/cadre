@@ -51,8 +51,13 @@ class AbstractController {
      */
     protected function initializeView($requestedAction) {
         // get the view
-        $this->view = new \Peregrinus\Cadre\View($requestedAction);
-        $this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');
+        //$this->view = new \Peregrinus\Cadre\View($requestedAction);
+        //$this->view->setViewPath(CADRE_viewPath . $this->getName() . '/');
+        $this->view = new \TYPO3Fluid\Fluid\View\TemplateView();
+        $paths = $this->view->getTemplatePaths();
+        $paths->setTemplateRootPaths([CADRE_basePath.'Resources/Private/Templates/']);
+        $paths->setPartialRootPaths([CADRE_basePath.'Resources/Private/Partials/']);
+        $paths->setLayoutRootPaths([CADRE_basePath.'Resources/Private/Layouts/']);
     }
 
     protected function initializeController() {

@@ -74,11 +74,12 @@ class Request
     /**
      * Get a specific argument from the request
      * @param \string $argument Argument name
+     * @param mixed $default Default value
      * @param variant Argument value or FALSE if argument not present
      */
-    public function getArgument($argument)
+    public function getArgument($argument, $default = false)
     {
-        return ($this->hasArgument($argument) ? $this->data[$argument] : false);
+        return ($this->hasArgument($argument) ? $this->data[$argument] : $default);
     }
 
     /**

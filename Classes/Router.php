@@ -163,7 +163,7 @@ class Router
         }
         $arguments['controller'] = $controller;
         $arguments['action']     = $action;
-        $uri                     = \Peregrinus\Cadre\Router::getInstance()->getUri($arguments,
+        $uri                     = $this->getInstance()->getUri($arguments,
             $pattern);
 
 

@@ -54,7 +54,10 @@ class Debugger
         echo '<pre style="border: solid 1px red; padding: 5px; background-color: lightpink;">';
         if ($label) echo '<b>'.$label.'</b><br />';
         //print_r($backtrace);
-        echo '<small><b>' . ($backtrace[$traceSteps]['class'] ? $backtrace[$traceSteps]['class'] . '::' : '') . $backtrace[$traceSteps]['function'] . '() ' . pathinfo($backtrace[$traceSteps - 1]['file'], PATHINFO_BASENAME) . ':' . $backtrace[$traceSteps - 1]['line'] . '</b></small><hr />';
+        echo '<small><b>'
+            . ($backtrace[$traceSteps]['class'] ? $backtrace[$traceSteps]['class'] . '::' : '')
+            . $backtrace[$traceSteps]['function'] . '() ' . pathinfo($backtrace[$traceSteps - 1]['file'], PATHINFO_BASENAME) . ':'
+            . $backtrace[$traceSteps - 1]['line'] . '</b></small><hr />';
         self::showContext($backtrace[$traceSteps-1]['file'], $backtrace[$traceSteps-1]['line']);
         echo '<div style="background-color: white">';
         if (!empty($v)) {

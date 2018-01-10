@@ -55,8 +55,10 @@ class Framework {
         define('CADRE_viewPath', CADRE_basePath . 'Resources/Private/Views/');
         define(CADRE_appKey.'viewPath', CADRE_viewPath);
 
-        define('CADRE_baseUrl', ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME'] 
-        . dirname(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH)) . '/');
+        $url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http') . '://' . $_SERVER['SERVER_NAME']
+            . dirname(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH));
+        if (substr($url, -1) !== '/') $url .= '/';
+        define('CADRE_baseUrl', $url);
         define (CADRE_appKey.'baseUrl', CADRE_baseUrl);
 
         // error handling stuff:

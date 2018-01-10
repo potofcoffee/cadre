@@ -194,7 +194,7 @@ class AbstractController {
     public function renderView($show = true, $overrideContents) {
         $rendered = $overrideContents ? $overrideContents : $this->view->render($this->action);
         // final encoding function?
-        if ($func = $this->encodingFunction) {
+        if (!is_null($func = $this->encodingFunction)) {
             if (method_exists($this, $func)) {
                 $rendered = $this->$func($rendered);
             } elseif (function_exists($func)) {

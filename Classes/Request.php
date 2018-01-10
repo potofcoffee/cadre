@@ -27,7 +27,7 @@ namespace Peregrinus\Cadre;
 class Request
 {
     static $instance = NULL;
-    protected $data  = array();
+    protected $data = array();
 
     /**
      * Get an instance of the request object
@@ -87,7 +87,8 @@ class Request
      * @param string $argument Argument key
      * @param mixed $data Data
      */
-    public function setArgument($argument, $data) {
+    public function setArgument($argument, $data)
+    {
         $this->data[$argument] = $data;
     }
 
@@ -123,14 +124,14 @@ class Request
      */
     public function parseUri()
     {
-        $pattern            = 'controller|action';
-        $uri                = $_SERVER['REQUEST_URI'];
+        $pattern = 'controller|action';
+        $uri = $_SERVER['REQUEST_URI'];
         $this->data['_ext'] = pathinfo($uri, PATHINFO_EXTENSION);
-        $uri                = str_replace('.'.$this->data['_ext'], '', $uri);
-        $uri                = str_replace(parse_url(CADRE_baseUrl, PHP_URL_PATH),
-            '', $uri);
-        $uri                = parse_url($uri, PHP_URL_PATH);
-        \Peregrinus\Cadre\Logger::getLogger()->addDebug('Parsing URI '.$uri);
+        $uri = str_replace('.' . $this->data['_ext'], '', $uri);
+        $path = parse_url(CADRE_baseUrl, PHP_URL_PATH);
+        if ($path !== '/') $uri = str_replace($path, '', $uri); else $uri = substr($uri, 1);
+        $uri = parse_url($uri, PHP_URL_PATH);
+        \Peregrinus\Cadre\Logger::getLogger()->addDebug('Parsing URI ' . $uri);
         if ($uri != '') {
             $this->data['_raw'] = explode('/', $uri);
         } else {
@@ -179,8 +180,8 @@ class Request
     {
         foreach ($args as $arg) {
             if (!$this->hasArgument($arg)) {
-                \Peregrinus\Cadre\Logger::getLogger()->addDebug('FATAL: Missing argument \''.$arg.'\'');
-                die('FATAL: Missing argument \''.$arg.'\'');
+                \Peregrinus\Cadre\Logger::getLogger()->addDebug('FATAL: Missing argument \'' . $arg . '\'');
+                die('FATAL: Missing argument \'' . $arg . '\'');
             }
         }
     }

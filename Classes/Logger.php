@@ -31,13 +31,15 @@ namespace Peregrinus\Cadre;
 class Logger
 {
     static protected $instance = null;
+
+    /** @var \Monolog\Logger|null  */
     protected $logger          = null;
 
     /**
-     * Get an instance of the request object
+     * Get an instance of the logger object
      * @return \Peregrinus\Cadre\Logger Instance of session object
      */
-    static public function getInstance()
+    static public function getInstance(): Logger
     {
         if (null === self::$instance) {
             self::$instance = new self();
@@ -45,7 +47,11 @@ class Logger
         return self::$instance;
     }
 
-    static public function getLogger()
+    /**
+     * Get an instance of the attached Monolog Logger
+     * @return \Monolog\Logger
+     */
+    static public function getLogger(): \Monolog\Logger
     {
         $me = self::getInstance();
         return $me->logger;

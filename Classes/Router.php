@@ -38,9 +38,9 @@ class Router
 
     /**
      * Get an instance of the request object
-     * @return \Peregrinus\Cadre\Utility\Request Instance of session object
+     * @return \Peregrinus\Cadre\Router Instance of session object
      */
-    static public function getInstance()
+    static public function getInstance(): Router
     {
         if (null === self::$instance) {
             self::$instance = new self();
@@ -163,7 +163,7 @@ class Router
         }
         $arguments['controller'] = $controller;
         $arguments['action']     = $action;
-        $uri                     = $this->getInstance()->getUri($arguments,
+        $uri                     = $this->getUri($arguments,
             $pattern);
 
 
